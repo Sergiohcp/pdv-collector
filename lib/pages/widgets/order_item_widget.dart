@@ -4,37 +4,47 @@ import 'package:pdv_collector/models/order.dart';
 
 class OrderItem extends StatelessWidget {
   final Order order;
+  final VoidCallback onSelectOrder;
 
-  const OrderItem({Key? key, required this.order});
-
-  Widget buildOrderRow(String key, String value) {
-    return Row(
-      children: [
-        Text(
-          key,
-          style: PdvCollectorTextStyles.orderKey,
-        ),
-        SizedBox(
-          width: 16,
-        ),
-        Text(
-          value,
-          style: PdvCollectorTextStyles.orderValue,
-        )
-      ],
-    );
-  }
+  const OrderItem({Key? key, required this.order, required this.onSelectOrder});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Column(
-        children: [
-          buildOrderRow('Id:', order.uidpk),
-          buildOrderRow('Nº:', "${order.orderNumber}"),
-          buildOrderRow('Tipo:', order.orderType),
-        ],
+    final style = PdvCollectorTextStyles.orderItem;
+
+    return GestureDetector(
+      onTap: onSelectOrder,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "${order.orderNumber}",
+                  style: style,
+                ),
+                Text(
+                  order.createdDate,
+                  style: style,
+                ),
+                Text(
+                  "${order.amount}",
+                  style: style,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              "Sergio Henrique",
+              style: style,
+            ),
+          ],
+        ),
       ),
     );
   }

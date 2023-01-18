@@ -14,15 +14,15 @@ class PdvCollectorTextStyles {
     fontWeight: FontWeight.w400,
   );
 
-  static final TextStyle orderKey = TextStyle(
+  static final TextStyle orderItem = TextStyle(
     color: PdvCollectorColors.black,
-    fontSize: 18,
-    fontWeight: FontWeight.w600,
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
   );
 
-  static final TextStyle orderValue = TextStyle(
-    color: PdvCollectorColors.grayDarker,
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
+  static final TextStyle orderDetailsTitle = TextStyle(
+    color: PdvCollectorColors.black,
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
   );
 }

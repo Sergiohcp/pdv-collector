@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pdv_collector/bindings/home_binding.dart';
+import 'package:pdv_collector/bindings/orders_binding.dart';
 import 'package:pdv_collector/controllers/db_controller.dart';
 import 'package:pdv_collector/core/pdv_collector_colors.dart';
 import 'package:pdv_collector/pages/db_page.dart';
-import 'package:pdv_collector/pages/home_page.dart';
+import 'package:pdv_collector/pages/order_details_page.dart';
+import 'package:pdv_collector/pages/orders_page.dart';
 import 'package:pdv_collector/pages/splash_page.dart';
 
 class PdvCollectorApp extends StatelessWidget {
@@ -21,10 +22,16 @@ class PdvCollectorApp extends StatelessWidget {
       navigatorKey: Get.key,
       initialRoute: '/Splash',
       getPages: [
-        GetPage(
-            name: '/Splash', page: () => SplashPage()),
+        GetPage(name: '/Splash', page: () => SplashPage()),
         GetPage(name: '/DB', page: () => DBPage()),
-        GetPage(name: '/Home', page: () => HomePage(), binding: HomeBinding()),
+        GetPage(
+            name: '/Orders',
+            page: () => OrdersPage(),
+            binding: OrdersBinding()),
+        GetPage(
+            name: '/OrderDetails',
+            page: () => OrderDetailsPage(),
+            binding: OrdersBinding()),
       ],
       debugShowCheckedModeBanner: false,
     );

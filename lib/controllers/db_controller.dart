@@ -37,7 +37,7 @@ class DBController {
       await conn.connect();
       await this.save(host, user, password, database);
       this.db = conn;
-      Get.offAllNamed('/Home');
+      Get.offAllNamed('/Orders');
     } finally {
       setConnectLoading(false);
     }

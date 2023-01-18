@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:pdv_collector/controllers/db_controller.dart';
 
-class HomeRepository {
+class OrdersRepository {
   final dbController = Get.find<DBController>();
 
   Future getOrders() async {
