@@ -7,7 +7,7 @@ class HomeRepository {
   final dbController = Get.find<DBController>();
 
   Future getOrders() async {
-    var result = await dbController.db.execute('select * from torder limit 10');
+    var result = await dbController.db.execute('select * from torder limit 3');
     return result;
   }
 }

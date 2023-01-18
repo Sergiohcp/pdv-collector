@@ -1,16 +1,19 @@
 class Order {
-  String id;
-  double total;
+  String uidpk;
+  int orderNumber;
+  String orderType;
 
   Order({
-    this.id = "",
-    this.total = 0,
+    this.uidpk = "",
+    this.orderNumber = 0,
+    this.orderType = "",
   });
 
   factory Order.createOrder(Map<String, dynamic> map) {
     return Order(
-      id: map['id'] ?? "",
-      total: map['total'] ?? 0,
+      uidpk: map['uidpk'] ?? "",
+      orderNumber: int.parse(map['order_number']) ?? 0,
+      orderType: map['order_type'] ?? "",
     );
   }
 }

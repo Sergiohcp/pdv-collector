@@ -21,10 +21,7 @@ class _SplashPageState extends State<SplashPage> {
     final String? user = prefs.getString('user');
     final String? password = prefs.getString('password');
     final String? database = prefs.getString('database');
-    if (host!.isNotEmpty &&
-        user!.isNotEmpty &&
-        password!.isNotEmpty &&
-        database!.isNotEmpty) {
+    if (host != null && user != null && password != null && database != null) {
       dbController.connect(host, user, password, database);
       return;
     }
@@ -40,16 +37,12 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(color: PdvCollectorColors.white),
-        child: Center(
+        backgroundColor: PdvCollectorColors.splash,
+        body: Center(
           child: Image.asset(
             PdvCollectorImages.logo,
-            height: MediaQuery.of(context).size.height,
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

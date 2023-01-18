@@ -42,4 +42,13 @@ class DBController {
       setConnectLoading(false);
     }
   }
+
+  disconnect() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('host');
+    await prefs.remove('user');
+    await prefs.remove('password');
+    await prefs.remove('database');
+    Get.offNamed('/DB');
+  }
 }
