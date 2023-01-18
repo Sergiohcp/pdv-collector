@@ -1,0 +1,19 @@
+version: '1'
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'pdv_collector_db'
+      MYSQL_USER: 'pdv_collector'
+      MYSQL_PASSWORD: 'pdv_collector_wine'
+      MYSQL_ROOT_PASSWORD: 'pdv_collector_wine'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - pdv-collector-db:/var/lib/mysql
+
+volumes:
+  pdv-collector-db:
