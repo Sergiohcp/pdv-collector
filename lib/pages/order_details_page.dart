@@ -3,9 +3,13 @@ import 'package:get/get.dart';
 import 'package:pdv_collector/controllers/db_controller.dart';
 import 'package:pdv_collector/controllers/orders_controller.dart';
 import 'package:pdv_collector/core/pdv_collector_colors.dart';
+import 'package:pdv_collector/core/pdv_collector_images.dart';
 import 'package:pdv_collector/core/pdv_collector_text_styles.dart';
-import 'package:pdv_collector/pages/widgets/order_item_row.dart';
-import 'package:pdv_collector/widgets/custom_divider.dart';
+import 'package:pdv_collector/pages/widgets/order_item_row_widget.dart';
+import 'package:pdv_collector/widgets/counter_widget.dart';
+import 'package:pdv_collector/widgets/custom_button_widget.dart';
+import 'package:pdv_collector/widgets/custom_divider_widget.dart';
+import 'package:pdv_collector/widgets/custom_text_widget.dart';
 
 class OrderDetailsPage extends StatefulWidget {
   const OrderDetailsPage({Key? key}) : super(key: key);
@@ -56,13 +60,18 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text("Pedido ${selectedOrder.orderNumber}",
-                                        style: titleStyle),
+                                    CustomText(
+                                      "Pedido ${selectedOrder.orderNumber}",
+                                      fontSize: 20,
+                                      fontWeight: 'bold',
+                                    ),
                                     SizedBox(
                                       width: 8,
                                     ),
-                                    Text(selectedOrder.createdDate,
-                                        style: itemStyle)
+                                    Flexible(
+                                      child: Text(selectedOrder.createdDate,
+                                          style: itemStyle),
+                                    )
                                   ],
                                 ),
                               ),
@@ -97,19 +106,65 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Lido: "),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: PdvCollectorColors.green),
-                                  child: Center(
-                                      child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8, horizontal: 16),
-                                    child: Text('0'),
-                                  )),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Counter(
+                                      text: "Lido: ",
+                                      number: 0,
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Counter(
+                                        text: "Falta: ",
+                                        number: 0,
+                                        type: CounterType.secondary),
+                                  ],
                                 )
                               ],
+                            ),
+                            SizedBox(
+                              height: 16,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                print('CÓDIGO DE BARRAS');
+                              },
+                              child: Image.asset(
+                                PdvCollectorImages.barcode,
+                                //width: 200,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 24,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: CustomButton(
+                                      text: 'Finalizar',
+                                      onPressed: null,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 16,
+                                  ),
+                                  Expanded(
+                                    child: CustomButton(
+                                      text: 'Cancelar',
+                                      variant: CustomButtonVariant.outlined,
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
                             )
                           ],
                         )

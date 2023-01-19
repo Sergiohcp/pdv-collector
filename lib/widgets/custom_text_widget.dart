@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:pdv_collector/core/pdv_collector_colors.dart';
 
-class Typography extends StatelessWidget {
+class CustomText extends StatelessWidget {
   final String text;
-  final double? size;
-  final String? weight;
+  final dynamic fontSize;
+  final String? fontWeight;
   final String? color;
 
-  Typography(this.text,
-      {Key? key, this.size = 16, this.weight = 'normal', this.color = 'black'});
+  const CustomText(this.text,
+      {Key? key,
+      this.fontSize = 'md',
+      this.fontWeight = 'normal',
+      this.color = 'black'});
 
-  getWeight() {
-    switch (this.weight) {
+  double getFontSize() {
+    if (!(this.fontSize is String)) return this.fontSize.toDouble();
+    switch (this.fontSize) {
+      case 'md':
+        return 16;
+      case 'lg':
+        return 18;
+      case 'xl':
+        return 20;
+      default:
+        return 16;
+    }
+  }
+
+  getFontWeight() {
+    switch (this.fontWeight) {
       case 'normal':
         return FontWeight.w400;
       case 'medium':
@@ -50,8 +67,8 @@ class Typography extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(this.text,
         style: TextStyle(
-          fontSize: this.size,
-          fontWeight: getWeight(),
+          fontSize: getFontSize(),
+          fontWeight: getFontWeight(),
           color: getColor(),
         ));
   }

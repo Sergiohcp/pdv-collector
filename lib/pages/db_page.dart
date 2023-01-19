@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pdv_collector/controllers/db_controller.dart';
 import 'package:pdv_collector/core/pdv_collector_colors.dart';
-import 'package:pdv_collector/core/pdv_collector_text_styles.dart';
 import 'package:pdv_collector/utils/toaster.dart';
+import 'package:pdv_collector/widgets/custom_button_widget.dart';
+import 'package:pdv_collector/widgets/custom_text_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DBPage extends StatefulWidget {
@@ -60,9 +61,11 @@ class _DBPageState extends State<DBPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  CustomText(
                     'Conexão:',
-                    style: PdvCollectorTextStyles.title,
+                    color: 'tannat.default',
+                    fontSize: 'xl',
+                    fontWeight: 'bold',
                   ),
                   SizedBox(
                     height: 16,
@@ -107,24 +110,21 @@ class _DBPageState extends State<DBPage> {
                   SizedBox(
                     height: 16,
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (hostController.text.isEmpty ||
-                            userController.text.isEmpty ||
-                            passwordController.text.isEmpty ||
-                            databaseController.text.isEmpty) {
-                          showToaster(
-                              title: "Erro",
-                              message: "Preencha todos os campos.");
-                          return;
-                        }
-                        this.connect(hostController.text, userController.text,
-                            passwordController.text, databaseController.text);
-                      },
-                      child: Text('Conectar'),
-                    ),
+                  CustomButton(
+                    onPressed: () {
+                      if (hostController.text.isEmpty ||
+                          userController.text.isEmpty ||
+                          passwordController.text.isEmpty ||
+                          databaseController.text.isEmpty) {
+                        showToaster(
+                            title: "Erro",
+                            message: "Preencha todos os campos.");
+                        return;
+                      }
+                      this.connect(hostController.text, userController.text,
+                          passwordController.text, databaseController.text);
+                    },
+                    text: 'Conectar',
                   ),
                 ],
               ),

@@ -26,7 +26,6 @@ class OrdersController {
 
   bool get isOrderItemsLoading => _isOrderItemsLoading.value;
 
-
   void setOrders(List<Order> value) {
     _orders.value = value;
   }
@@ -47,7 +46,6 @@ class OrdersController {
     _isOrderItemsLoading.value = value;
   }
 
-
   Future getOrders() async {
     try {
       setIsOrdersLoading(true);
@@ -57,6 +55,7 @@ class OrdersController {
         dbOrders.add(row.assoc());
       }
       final orders = Orders.createOrders(dbOrders);
+      print(orders.length);
       setOrders(orders);
     } catch (error) {
       print(error);
@@ -68,15 +67,13 @@ class OrdersController {
   Future getOrderItems() async {
     try {
       setIsOrderItemsLoading(true);
-      IResultSet resultSet = await this.ordersRepository.getOrderItems(
-          selectedOrder.uidpk);
+      IResultSet resultSet =
+          await this.ordersRepository.getOrderItems(selectedOrder.uidpk);
       List<Map<String, dynamic>> dbOrderItems = [];
       for (var row in resultSet.rows) {
-        print(row.assoc());
         dbOrderItems.add(row.assoc());
       }
       final orderItems = OrderItems.createOrderItems(dbOrderItems);
-      print(orderItems.length);
       setOrderItems(orderItems);
     } catch (error) {
       print(error);

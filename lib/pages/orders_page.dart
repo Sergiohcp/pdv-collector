@@ -3,10 +3,11 @@ import 'package:get/get.dart';
 import 'package:pdv_collector/controllers/db_controller.dart';
 import 'package:pdv_collector/controllers/orders_controller.dart';
 import 'package:pdv_collector/core/pdv_collector_colors.dart';
-import 'package:pdv_collector/core/pdv_collector_text_styles.dart';
 import 'package:pdv_collector/models/order.dart';
-import 'package:pdv_collector/pages/widgets/order_row.dart';
-import 'package:pdv_collector/widgets/custom_divider.dart';
+import 'package:pdv_collector/pages/widgets/order_row_widget.dart';
+import 'package:pdv_collector/widgets/custom_button_widget.dart';
+import 'package:pdv_collector/widgets/custom_divider_widget.dart';
+import 'package:pdv_collector/widgets/custom_text_widget.dart';
 
 class OrdersPage extends StatefulWidget {
   const OrdersPage({Key? key}) : super(key: key);
@@ -43,6 +44,7 @@ class _OrdersPageState extends State<OrdersPage> {
       child: Obx(
         () => !ordersController.isOrdersLoading
             ? Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
@@ -52,9 +54,11 @@ class _OrdersPageState extends State<OrdersPage> {
                         SizedBox(
                           height: 48,
                         ),
-                        Text(
+                        CustomText(
                           'Pedidos',
-                          style: PdvCollectorTextStyles.title,
+                          fontSize: 'xl',
+                          fontWeight: 'bold',
+                          color: 'tannat.default',
                         ),
                         Expanded(
                           child: ListView.separated(
@@ -72,19 +76,13 @@ class _OrdersPageState extends State<OrdersPage> {
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width - 32,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            dBController.disconnect();
-                          },
-                          child: Text('Desconectar'),
-                        ),
-                      )
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: CustomButton(
+                        text: 'Desconectar',
+                        onPressed: () {
+                          dBController.disconnect();
+                        }),
                   ),
                 ],
               )
