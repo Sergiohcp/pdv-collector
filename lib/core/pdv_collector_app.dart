@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:pdv_collector/bindings/orders_binding.dart';
 import 'package:pdv_collector/controllers/db_controller.dart';
 import 'package:pdv_collector/core/pdv_collector_colors.dart';
-import 'package:pdv_collector/pages/db_page.dart';
-import 'package:pdv_collector/pages/order_details_page.dart';
-import 'package:pdv_collector/pages/orders_page.dart';
-import 'package:pdv_collector/pages/splash_page.dart';
+import 'package:pdv_collector/pages/db/db_page.dart';
+import 'package:pdv_collector/pages/order_details/order_details_page.dart';
+import 'package:pdv_collector/pages/orders/orders_page.dart';
+import 'package:pdv_collector/pages/splash/splash_page.dart';
 
 class PdvCollectorApp extends StatelessWidget {
   @override

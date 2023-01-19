@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:mysql_client/mysql_client.dart';
+import 'package:pdv_collector/utils/toaster.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DBController {
@@ -39,8 +40,7 @@ class DBController {
       this.db = conn;
       Get.offAllNamed('/Orders');
     } catch (error) {
-      print('PASSOU AQUI NO CONNECT');
-      print(error);
+      showToaster(title: "Erro", message: "Não foi possível concetar ao banco");
       Get.offAllNamed('/DB');
     } finally {
       setConnectLoading(false);

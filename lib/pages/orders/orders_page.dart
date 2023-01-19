@@ -4,7 +4,7 @@ import 'package:pdv_collector/controllers/db_controller.dart';
 import 'package:pdv_collector/controllers/orders_controller.dart';
 import 'package:pdv_collector/core/pdv_collector_colors.dart';
 import 'package:pdv_collector/models/order.dart';
-import 'package:pdv_collector/pages/widgets/order_row_widget.dart';
+import 'package:pdv_collector/pages/orders/widgets/order_row_widget.dart';
 import 'package:pdv_collector/widgets/custom_button_widget.dart';
 import 'package:pdv_collector/widgets/custom_divider_widget.dart';
 import 'package:pdv_collector/widgets/custom_text_widget.dart';
@@ -38,7 +38,6 @@ class _OrdersPageState extends State<OrdersPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(ordersController.orders.length);
     return Scaffold(
         backgroundColor: PdvCollectorColors.white,
         body: Padding(
@@ -61,6 +60,9 @@ class _OrdersPageState extends State<OrdersPage> {
                               fontSize: 'xl',
                               fontWeight: 'bold',
                               color: 'tannat.default',
+                            ),
+                            SizedBox(
+                              height: 8,
                             ),
                             Expanded(
                               child: ListView.separated(
@@ -89,8 +91,10 @@ class _OrdersPageState extends State<OrdersPage> {
                       ),
                     ],
                   )
-                : CircularProgressIndicator(
-                    color: PdvCollectorColors.primary,
+                : Center(
+                    child: CircularProgressIndicator(
+                      color: PdvCollectorColors.primary,
+                    ),
                   ),
           ),
         ));

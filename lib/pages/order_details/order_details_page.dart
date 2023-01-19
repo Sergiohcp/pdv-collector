@@ -4,7 +4,7 @@ import 'package:pdv_collector/controllers/db_controller.dart';
 import 'package:pdv_collector/controllers/orders_controller.dart';
 import 'package:pdv_collector/core/pdv_collector_colors.dart';
 import 'package:pdv_collector/core/pdv_collector_images.dart';
-import 'package:pdv_collector/pages/widgets/order_item_row_widget.dart';
+import 'package:pdv_collector/pages/order_details/widgets/order_item_row_widget.dart';
 import 'package:pdv_collector/widgets/counter_widget.dart';
 import 'package:pdv_collector/widgets/custom_button_widget.dart';
 import 'package:pdv_collector/widgets/custom_divider_widget.dart';
@@ -97,8 +97,6 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                   itemBuilder: (context, index) {
                                     final item =
                                         ordersController.orderItems[index];
-
-                                    print(ordersController.readOrderItems);
 
                                     return GestureDetector(
                                       onTap: () {
@@ -193,8 +191,10 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         )
                       ],
                     )
-                  : CircularProgressIndicator(
-                      color: PdvCollectorColors.primary,
+                  : Center(
+                      child: CircularProgressIndicator(
+                        color: PdvCollectorColors.primary,
+                      ),
                     ),
             )));
   }

@@ -30,7 +30,8 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
-    verifyCredentials();
+    Future.delayed(Duration(seconds: 2)).then((_) => verifyCredentials());
+
     super.initState();
   }
 

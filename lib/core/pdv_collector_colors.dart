@@ -13,7 +13,7 @@ class PdvCollectorColors {
   static const Color grayDark = Color(0xFF9C9C9C);
   static const Color gray = Color(0xFFDADEDF);
   static const Color green = Color(0xFF1BC91B);
-  static const Color splash = Color(0XFFF25C4E);
+  static const Color splash = Color(0XFFFDF3378);
   static const MaterialColor tannat = MaterialColor(
     0xFFC81A78,
     <int, Color>{

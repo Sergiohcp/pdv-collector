@@ -69,7 +69,6 @@ class OrdersController {
         dbOrders.add(row.assoc());
       }
       final orders = Orders.createOrders(dbOrders);
-      print(orders.length);
       setOrders(orders);
     } catch (error) {
       print(error);
