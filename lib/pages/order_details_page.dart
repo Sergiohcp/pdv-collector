@@ -4,7 +4,6 @@ import 'package:pdv_collector/controllers/db_controller.dart';
 import 'package:pdv_collector/controllers/orders_controller.dart';
 import 'package:pdv_collector/core/pdv_collector_colors.dart';
 import 'package:pdv_collector/core/pdv_collector_images.dart';
-import 'package:pdv_collector/core/pdv_collector_text_styles.dart';
 import 'package:pdv_collector/pages/widgets/order_item_row_widget.dart';
 import 'package:pdv_collector/widgets/counter_widget.dart';
 import 'package:pdv_collector/widgets/custom_button_widget.dart';
@@ -35,9 +34,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final selectedOrder = ordersController.selectedOrder;
-    final titleStyle = PdvCollectorTextStyles.orderDetailsTitle;
-    final itemStyle = PdvCollectorTextStyles.orderItem;
     return Scaffold(
+        backgroundColor: PdvCollectorColors.white,
         body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 24),
             child: Obx(
@@ -69,8 +67,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                       width: 8,
                                     ),
                                     Flexible(
-                                      child: Text(selectedOrder.createdDate,
-                                          style: itemStyle),
+                                      child: CustomText(
+                                        selectedOrder.createdDate,
+                                      ),
                                     )
                                   ],
                                 ),
@@ -82,7 +81,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text(selectedOrder.name, style: itemStyle),
+                                    CustomText(
+                                      selectedOrder.name,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -93,11 +94,25 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                   separatorBuilder: (context, index) =>
                                       CustomDivider(),
                                   itemCount: ordersController.orderItems.length,
-                                  itemBuilder: (context, index) => OrderItemRow(
-                                      orderItem:
-                                          ordersController.orderItems[index]),
+                                  itemBuilder: (context, index) {
+                                    final item =
+                                        ordersController.orderItems[index];
+
+                                    print(ordersController.readOrderItems);
+
+                                    return GestureDetector(
+                                      onTap: () {
+                                        ordersController
+                                            .setReadOrderItem(item.uidpk);
+                                      },
+                                      child: OrderItemRow(
+                                          orderItem: item,
+                                          read: ordersController.readOrderItems
+                                              .contains(item.uidpk)),
+                                    );
+                                  },
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ),
@@ -159,6 +174,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                       text: 'Cancelar',
                                       variant: CustomButtonVariant.outlined,
                                       onPressed: () {
+                                        ordersController.clearReadOrderItems();
                                         Get.back();
                                       },
                                     ),

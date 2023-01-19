@@ -39,57 +39,59 @@ class _OrdersPageState extends State<OrdersPage> {
   Widget build(BuildContext context) {
     print(ordersController.orders.length);
     return Scaffold(
+        backgroundColor: PdvCollectorColors.white,
         body: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 24),
-      child: Obx(
-        () => !ordersController.isOrdersLoading
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 48,
+          padding: const EdgeInsets.symmetric(vertical: 24),
+          child: Obx(
+            () => !ordersController.isOrdersLoading
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 48,
+                            ),
+                            CustomText(
+                              'Pedidos',
+                              fontSize: 'xl',
+                              fontWeight: 'bold',
+                              color: 'tannat.default',
+                            ),
+                            Expanded(
+                              child: ListView.separated(
+                                padding: EdgeInsets.only(top: 0),
+                                separatorBuilder: (context, index) =>
+                                    CustomDivider(),
+                                itemCount: ordersController.orders.length,
+                                itemBuilder: (context, index) => OrderRow(
+                                    onSelectOrder: () {
+                                      onSelectOrder(
+                                          ordersController.orders[index]);
+                                    },
+                                    order: ordersController.orders[index]),
+                              ),
+                            ),
+                          ],
                         ),
-                        CustomText(
-                          'Pedidos',
-                          fontSize: 'xl',
-                          fontWeight: 'bold',
-                          color: 'tannat.default',
-                        ),
-                        Expanded(
-                          child: ListView.separated(
-                            padding: EdgeInsets.only(top: 0),
-                            separatorBuilder: (context, index) =>
-                                CustomDivider(),
-                            itemCount: ordersController.orders.length,
-                            itemBuilder: (context, index) => OrderRow(
-                                onSelectOrder: () {
-                                  onSelectOrder(ordersController.orders[index]);
-                                },
-                                order: ordersController.orders[index]),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: CustomButton(
+                            text: 'Desconectar',
+                            onPressed: () {
+                              dBController.disconnect();
+                            }),
+                      ),
+                    ],
+                  )
+                : CircularProgressIndicator(
+                    color: PdvCollectorColors.primary,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: CustomButton(
-                        text: 'Desconectar',
-                        onPressed: () {
-                          dBController.disconnect();
-                        }),
-                  ),
-                ],
-              )
-            : CircularProgressIndicator(
-                color: PdvCollectorColors.primary,
-              ),
-      ),
-    ));
+          ),
+        ));
   }
 }
