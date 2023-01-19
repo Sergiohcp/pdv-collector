@@ -26,6 +26,7 @@ class _OrdersPageState extends State<OrdersPage> {
 
   onSelectOrder(Order value) {
     ordersController.setSelectedOrder(value);
+    ordersController.clearReadOrderItems();
     Get.toNamed('/OrderDetails');
   }
 

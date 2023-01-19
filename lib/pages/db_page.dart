@@ -5,7 +5,6 @@ import 'package:pdv_collector/core/pdv_collector_colors.dart';
 import 'package:pdv_collector/utils/toaster.dart';
 import 'package:pdv_collector/widgets/custom_button_widget.dart';
 import 'package:pdv_collector/widgets/custom_text_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DBPage extends StatefulWidget {
   const DBPage({Key? key}) : super(key: key);
@@ -27,27 +26,6 @@ class _DBPageState extends State<DBPage> {
   connect(String host, String user, String password, String database) {
     dbController.connect(hostController.text, userController.text,
         passwordController.text, databaseController.text);
-  }
-
-  verifyCredentials() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? host = prefs.getString('host');
-    final String? user = prefs.getString('user');
-    final String? password = prefs.getString('password');
-    final String? database = prefs.getString('database');
-    if (host!.isNotEmpty &&
-        user!.isNotEmpty &&
-        password!.isNotEmpty &&
-        database!.isNotEmpty) {
-      this.connect(host, user, password, database);
-    }
-    credentialsLoading = false;
-  }
-
-  @override
-  void initState() {
-    verifyCredentials();
-    super.initState();
   }
 
   @override

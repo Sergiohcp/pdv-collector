@@ -105,10 +105,13 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                         ordersController
                                             .setReadOrderItem(item.uidpk);
                                       },
-                                      child: OrderItemRow(
-                                          orderItem: item,
-                                          read: ordersController.readOrderItems
-                                              .contains(item.uidpk)),
+                                      child: Obx(
+                                        () => OrderItemRow(
+                                            orderItem: item,
+                                            read: ordersController
+                                                .readOrderItems
+                                                .contains(item.uidpk)),
+                                      ),
                                     );
                                   },
                                 ),
@@ -126,14 +129,18 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                   children: [
                                     Counter(
                                       text: "Lido: ",
-                                      number: 0,
+                                      number: ordersController
+                                          .readOrderItems.length,
                                     ),
                                     SizedBox(
                                       height: 8,
                                     ),
                                     Counter(
                                         text: "Falta: ",
-                                        number: 0,
+                                        number:
+                                            ordersController.orderItems.length -
+                                                ordersController
+                                                    .readOrderItems.length,
                                         type: CounterType.secondary),
                                   ],
                                 )

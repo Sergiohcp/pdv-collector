@@ -38,6 +38,10 @@ class DBController {
       await this.save(host, user, password, database);
       this.db = conn;
       Get.offAllNamed('/Orders');
+    } catch (error) {
+      print('PASSOU AQUI NO CONNECT');
+      print(error);
+      Get.offAllNamed('/DB');
     } finally {
       setConnectLoading(false);
     }

@@ -36,6 +36,7 @@ class Counter extends StatelessWidget {
       children: [
         CustomText(this.text),
         Container(
+          width: 50,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: getColor()),
           child: Center(

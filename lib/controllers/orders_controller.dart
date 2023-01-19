@@ -46,7 +46,10 @@ class OrdersController {
   }
 
   void setReadOrderItem(int value) {
-    _readOrderItems.value.add(value);
+    if (!_readOrderItems.value.contains(value)) {
+      _readOrderItems.value.add(value);
+      _readOrderItems.value = _readOrderItems.value.toList();
+    }
   }
 
   void clearReadOrderItems() {
