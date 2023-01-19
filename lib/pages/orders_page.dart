@@ -5,7 +5,8 @@ import 'package:pdv_collector/controllers/orders_controller.dart';
 import 'package:pdv_collector/core/pdv_collector_colors.dart';
 import 'package:pdv_collector/core/pdv_collector_text_styles.dart';
 import 'package:pdv_collector/models/order.dart';
-import 'package:pdv_collector/pages/widgets/order_item_widget.dart';
+import 'package:pdv_collector/pages/widgets/order_row.dart';
+import 'package:pdv_collector/widgets/custom_divider.dart';
 
 class OrdersPage extends StatefulWidget {
   const OrdersPage({Key? key}) : super(key: key);
@@ -46,6 +47,7 @@ class _OrdersPageState extends State<OrdersPage> {
                 children: [
                   Expanded(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SizedBox(
                           height: 48,
@@ -56,13 +58,11 @@ class _OrdersPageState extends State<OrdersPage> {
                         ),
                         Expanded(
                           child: ListView.separated(
-                            separatorBuilder: (context, index) => Divider(
-                              height: 20,
-                              thickness: 2,
-                              color: PdvCollectorColors.black,
-                            ),
+                            padding: EdgeInsets.only(top: 0),
+                            separatorBuilder: (context, index) =>
+                                CustomDivider(),
                             itemCount: ordersController.orders.length,
-                            itemBuilder: (context, index) => OrderItem(
+                            itemBuilder: (context, index) => OrderRow(
                                 onSelectOrder: () {
                                   onSelectOrder(ordersController.orders[index]);
                                 },

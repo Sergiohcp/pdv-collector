@@ -1,23 +1,31 @@
 import 'package:get/get.dart';
 import 'package:mysql_client/mysql_client.dart';
 import 'package:pdv_collector/models/order.dart';
+import 'package:pdv_collector/models/order_item.dart';
+import 'package:pdv_collector/models/order_items.dart';
 import 'package:pdv_collector/models/orders.dart';
 import 'package:pdv_collector/repositories/orders_repository.dart';
 
 class OrdersController {
   final OrdersRepository ordersRepository;
-  final _orders = [].obs;
+  final RxList<Order> _orders = <Order>[].obs;
+  final Rx<Order> _selectedOrder = Order().obs;
+  final RxList<OrderItem> _orderItems = <OrderItem>[].obs;
   var _isOrdersLoading = false.obs;
-
-  final _selectedOrder = Order().obs;
+  var _isOrderItemsLoading = false.obs;
 
   OrdersController({required this.ordersRepository});
 
-  List<dynamic> get orders => _orders.value;
+  List<Order> get orders => _orders.value;
+
+  Order get selectedOrder => _selectedOrder.value;
+
+  List<OrderItem> get orderItems => _orderItems.value;
 
   bool get isOrdersLoading => _isOrdersLoading.value;
 
-  Order get selectedOrder => _selectedOrder.value;
+  bool get isOrderItemsLoading => _isOrderItemsLoading.value;
+
 
   void setOrders(List<Order> value) {
     _orders.value = value;
@@ -31,6 +39,15 @@ class OrdersController {
     _selectedOrder.value = value;
   }
 
+  void setOrderItems(List<OrderItem> value) {
+    _orderItems.value = value;
+  }
+
+  void setIsOrderItemsLoading(bool value) {
+    _isOrderItemsLoading.value = value;
+  }
+
+
   Future getOrders() async {
     try {
       setIsOrdersLoading(true);
@@ -40,12 +57,31 @@ class OrdersController {
         dbOrders.add(row.assoc());
       }
       final orders = Orders.createOrders(dbOrders);
-      print(orders.length);
       setOrders(orders);
     } catch (error) {
       print(error);
     } finally {
       setIsOrdersLoading(false);
+    }
+  }
+
+  Future getOrderItems() async {
+    try {
+      setIsOrderItemsLoading(true);
+      IResultSet resultSet = await this.ordersRepository.getOrderItems(
+          selectedOrder.uidpk);
+      List<Map<String, dynamic>> dbOrderItems = [];
+      for (var row in resultSet.rows) {
+        print(row.assoc());
+        dbOrderItems.add(row.assoc());
+      }
+      final orderItems = OrderItems.createOrderItems(dbOrderItems);
+      print(orderItems.length);
+      setOrderItems(orderItems);
+    } catch (error) {
+      print(error);
+    } finally {
+      setIsOrderItemsLoading(false);
     }
   }
 }

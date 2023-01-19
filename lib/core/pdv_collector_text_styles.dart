@@ -22,7 +22,7 @@ class PdvCollectorTextStyles {
 
   static final TextStyle orderDetailsTitle = TextStyle(
     color: PdvCollectorColors.black,
-    fontSize: 18,
-    fontWeight: FontWeight.w500,
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
   );
 }

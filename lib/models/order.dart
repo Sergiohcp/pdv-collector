@@ -1,25 +1,30 @@
-class Order {
-  String uidpk;
-  int orderNumber;
-  String orderType;
-  String createdDate;
-  double amount;
+import 'package:intl/intl.dart';
+import 'package:pdv_collector/utils/money.dart';
 
-  Order({
-    this.uidpk = "",
-    this.orderNumber = 0,
-    this.orderType = "",
-    this.createdDate = "",
-    this.amount = 0,
-  });
+class Order {
+  int uidpk;
+  String orderNumber;
+  String createdDate;
+  String amount;
+  String name;
+
+  Order(
+      {this.uidpk = 0,
+      this.orderNumber = "",
+      this.createdDate = "",
+      this.amount = "",
+      this.name = ""});
 
   factory Order.createOrder(Map<String, dynamic> map) {
+    final inputFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+    final outputFormat = DateFormat('MM/dd/yyyy hh:mm');
+
     return Order(
-      uidpk: map['uidpk'] ?? "",
-      orderNumber: int.parse(map['order_number']) ?? 0,
-      orderType: map['order_type'] ?? "",
-      createdDate: map['created_date'] ?? "",
-      amount: double.parse(map['amount']) ?? 0,
+      uidpk: int.parse(map!['uidpk']),
+      orderNumber: map!['order_number'],
+      createdDate: outputFormat.format(inputFormat.parse(map!['created_date'])),
+      amount: transformMoney(double.parse(map!['amount'])),
+      name: map!['name'].toString(),
     );
   }
 }
