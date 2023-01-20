@@ -17,6 +17,7 @@ dependencies:
   mysql_client: ^0.0.27
   shared_preferences: ^2.0.16
   intl: ^0.18.0
+  flutter_datawedge: ^1.2.0
 
 dev_dependencies:
   flutter_test:

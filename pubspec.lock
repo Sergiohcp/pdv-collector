@@ -83,6 +83,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_datawedge:
+    dependency: "direct main"
+    description:
+      name: flutter_datawedge
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -280,6 +287,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  strict_json:
+    dependency: transitive
+    description:
+      name: strict_json
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.6"
   string_scanner:
     dependency: transitive
     description:

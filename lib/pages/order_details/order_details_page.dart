@@ -150,6 +150,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                             GestureDetector(
                               onTap: () {
                                 print('CÓDIGO DE BARRAS');
+                                Get.toNamed('/Barcode');
                               },
                               child: Image.asset(
                                 PdvCollectorImages.barcode,
