@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
-import 'package:mysql_client/mysql_client.dart';
+import 'package:mysql1/mysql1.dart';
 import 'package:pdv_collector/models/order.dart';
 import 'package:pdv_collector/models/order_item.dart';
 import 'package:pdv_collector/models/order_items.dart';
@@ -63,10 +65,10 @@ class OrdersController {
   Future getOrders() async {
     try {
       setIsOrdersLoading(true);
-      IResultSet resultSet = await this.ordersRepository.getOrders();
+      Results result = await this.ordersRepository.getOrders();
       List<Map<String, dynamic>> dbOrders = [];
-      for (var row in resultSet.rows) {
-        dbOrders.add(row.assoc());
+      for (var row in result) {
+        dbOrders.add(jsonDecode(row['response'].toString()));
       }
       final orders = Orders.createOrders(dbOrders);
       setOrders(orders);
@@ -80,13 +82,14 @@ class OrdersController {
   Future getOrderItems() async {
     try {
       setIsOrderItemsLoading(true);
-      IResultSet resultSet =
+      Results result =
           await this.ordersRepository.getOrderItems(selectedOrder.uidpk);
       List<Map<String, dynamic>> dbOrderItems = [];
-      for (var row in resultSet.rows) {
-        dbOrderItems.add(row.assoc());
+      for (var row in result) {
+        dbOrderItems.add(jsonDecode(row['response'].toString()));
       }
       final orderItems = OrderItems.createOrderItems(dbOrderItems);
+      print(orderItems[0].checked);
       setOrderItems(orderItems);
     } catch (error) {
       print(error);

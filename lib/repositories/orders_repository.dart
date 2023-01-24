@@ -7,14 +7,14 @@ class OrdersRepository {
   final dbController = Get.find<DBController>();
 
   Future getOrders() async {
-    var result = await dbController.db.execute(
-        "select t.uidpk, t.order_number, t.created_date, t.amount, c.full_name as name from torder t left join torder_customer c on t.uidpk = c.order_uid where t.order_type = 'V' and t.status = 'IN_PROGRESS' and (t.checked is null or t.checked = false) order by t.uidpk asc");
+    var result =
+        await dbController.db.query("call get_conference_pending_orders()");
     return result;
   }
 
   Future getOrderItems(int orderId) async {
-    var result = await dbController.db.execute(
-        "SELECT i.uidpk, i.skucode, p.name, i.quantity from torder_item i inner join tproduct p on i.skucode = p.skucode where i.order_uid = ${orderId} order by i.uidpk ");
+    var result = await dbController.db
+        .query("call get_orders_items_to_conference(${orderId})");
     return result;
   }
 }

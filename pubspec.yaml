@@ -14,7 +14,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   get: ^4.6.5
-  mysql_client: ^0.0.27
+  mysql1: ^0.20.0
   shared_preferences: ^2.0.16
   intl: ^0.18.0
   flutter_datawedge: ^1.2.0

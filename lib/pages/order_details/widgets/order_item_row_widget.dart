@@ -5,16 +5,17 @@ import 'package:pdv_collector/widgets/custom_text_widget.dart';
 
 class OrderItemRow extends StatelessWidget {
   final OrderItem orderItem;
-  final bool read;
+  final bool checked;
 
-  OrderItemRow({Key? key, required this.orderItem, required this.read});
+  OrderItemRow({Key? key, required this.orderItem, required this.checked});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color:
-              this.read ? PdvCollectorColors.green : PdvCollectorColors.white),
+          color: this.checked
+              ? PdvCollectorColors.green
+              : PdvCollectorColors.white),
       child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           child: Row(

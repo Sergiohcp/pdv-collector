@@ -103,13 +103,9 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                         ordersController
                                             .setReadOrderItem(item.uidpk);
                                       },
-                                      child: Obx(
-                                        () => OrderItemRow(
-                                            orderItem: item,
-                                            read: ordersController
-                                                .readOrderItems
-                                                .contains(item.uidpk)),
-                                      ),
+                                      child: OrderItemRow(
+                                          orderItem: item,
+                                          checked: item.checked),
                                     );
                                   },
                                 ),

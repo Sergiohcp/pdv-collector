@@ -20,10 +20,10 @@ class Order {
     final outputFormat = DateFormat('MM/dd/yyyy hh:mm');
 
     return Order(
-      uidpk: int.parse(map!['uidpk']),
-      orderNumber: map!['order_number'],
-      createdDate: outputFormat.format(inputFormat.parse(map!['created_date'])),
-      amount: transformMoney(double.parse(map!['amount'])),
+      uidpk: map!['uidpk'],
+      orderNumber: map!['orderNumber'],
+      createdDate: outputFormat.format(inputFormat.parse(map!['createdDate'])),
+      amount: transformMoney(map!['amount']),
       name: map!['name'].toString(),
     );
   }

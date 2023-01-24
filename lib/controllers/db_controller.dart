@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:mysql_client/mysql_client.dart';
+import 'package:mysql1/mysql1.dart';
 import 'package:pdv_collector/utils/toaster.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,14 +28,16 @@ class DBController {
       String host, String user, String password, String database) async {
     try {
       setConnectLoading(true);
-      final conn = await MySQLConnection.createConnection(
-        host: host,
-        port: 3306,
-        userName: user,
-        password: password,
-        databaseName: database,
-      );
-      await conn.connect();
+      final dbSettings = ConnectionSettings(
+          host: host,
+          port: 3306,
+          user: user,
+          password: password,
+          db: database,
+          useSSL: false);
+      final conn = await MySqlConnection.connect(dbSettings);
+      await Future.delayed(Duration(seconds: 1));
+      // -------
       await this.save(host, user, password, database);
       this.db = conn;
       Get.offAllNamed('/Orders');
@@ -53,6 +55,7 @@ class DBController {
     await prefs.remove('user');
     await prefs.remove('password');
     await prefs.remove('database');
+    await this.db.close();
     Get.offNamed('/DB');
   }
 }

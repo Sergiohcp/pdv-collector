@@ -24,13 +24,13 @@ class OrderRow extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomText(
-                    order.orderNumber,
+                    order.orderNumber.toString(),
                   ),
                   CustomText(
                     order.createdDate,
                   ),
                   CustomText(
-                    order.amount,
+                    order.amount.toString(),
                   ),
                 ],
               ),
