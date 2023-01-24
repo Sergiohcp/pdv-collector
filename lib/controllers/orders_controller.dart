@@ -13,7 +13,6 @@ class OrdersController {
   final RxList<Order> _orders = <Order>[].obs;
   final Rx<Order> _selectedOrder = Order().obs;
   final RxList<OrderItem> _orderItems = <OrderItem>[].obs;
-  final RxList<int> _readOrderItems = <int>[].obs;
   var _isOrdersLoading = false.obs;
   var _isOrderItemsLoading = false.obs;
 
@@ -24,8 +23,6 @@ class OrdersController {
   Order get selectedOrder => _selectedOrder.value;
 
   List<OrderItem> get orderItems => _orderItems.value;
-
-  List<int> get readOrderItems => _readOrderItems.value;
 
   bool get isOrdersLoading => _isOrdersLoading.value;
 
@@ -45,17 +42,6 @@ class OrdersController {
 
   void setOrderItems(List<OrderItem> value) {
     _orderItems.value = value;
-  }
-
-  void setReadOrderItem(int value) {
-    if (!_readOrderItems.value.contains(value)) {
-      _readOrderItems.value.add(value);
-      _readOrderItems.value = _readOrderItems.value.toList();
-    }
-  }
-
-  void clearReadOrderItems() {
-    _readOrderItems.value = [];
   }
 
   void setIsOrderItemsLoading(bool value) {
@@ -89,7 +75,6 @@ class OrdersController {
         dbOrderItems.add(jsonDecode(row['response'].toString()));
       }
       final orderItems = OrderItems.createOrderItems(dbOrderItems);
-      print(orderItems[0].checked);
       setOrderItems(orderItems);
     } catch (error) {
       print(error);

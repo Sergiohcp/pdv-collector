@@ -98,15 +98,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     final item =
                                         ordersController.orderItems[index];
 
-                                    return GestureDetector(
-                                      onTap: () {
-                                        ordersController
-                                            .setReadOrderItem(item.uidpk);
-                                      },
-                                      child: OrderItemRow(
-                                          orderItem: item,
-                                          checked: item.checked),
-                                    );
+                                    return OrderItemRow(
+                                        orderItem: item, checked: item.checked);
                                   },
                                 ),
                               )
@@ -123,18 +116,14 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                   children: [
                                     Counter(
                                       text: "Lido: ",
-                                      number: ordersController
-                                          .readOrderItems.length,
+                                      number: 0,
                                     ),
                                     SizedBox(
                                       height: 8,
                                     ),
                                     Counter(
                                         text: "Falta: ",
-                                        number:
-                                            ordersController.orderItems.length -
-                                                ordersController
-                                                    .readOrderItems.length,
+                                        number: 0,
                                         type: CounterType.secondary),
                                   ],
                                 )
@@ -176,7 +165,6 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                       text: 'Cancelar',
                                       variant: CustomButtonVariant.outlined,
                                       onPressed: () {
-                                        ordersController.clearReadOrderItems();
                                         Get.back();
                                       },
                                     ),
